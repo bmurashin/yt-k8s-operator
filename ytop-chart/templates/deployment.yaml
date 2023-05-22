@@ -84,6 +84,10 @@ spec:
           readOnly: true
       securityContext:
         runAsNonRoot: true
+      {{- if .Values.controllerManager.manager.hostNetwork }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      {{- end }}
       serviceAccountName: {{ include "ytop-chart.fullname" . }}-controller-manager
       terminationGracePeriodSeconds: 10
       volumes:

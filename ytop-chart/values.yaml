@@ -31,6 +31,10 @@ controllerManager:
       requests:
         cpu: 10m
         memory: 64Mi
+    # if your kube-apiserver has no access to internal cluster network (e.g. if you use CNI such as Weave or Calico)
+    # you will get "dial tcp: connection refused" or "context deadline exceeded" error in response to kubectl apply -f cluster_spec.yaml
+    # set hostNetwork: true to expose operator webhook on node's IP so that kube-apiserver can reach it
+    hostNetwork: false
   replicas: 1
 kubernetesClusterDomain: cluster.local
 managerConfig:
